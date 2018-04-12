@@ -30,11 +30,12 @@ var axis;//Objeto auxiliar "Ejes"
 var camera;
 
 function loadObjects(pos_location) {
-	mesa = new Object(mesaSource);
-	mesa.generateModel(pos_location);
 
 	drone = new Object(droneSource);
 	drone.generateModel(pos_location);
+	mesa = new Object(mesaSource);
+	mesa.generateModel(pos_location);
+
 
 }
 function setObjectTransformations() {
@@ -46,7 +47,7 @@ function setObjectTransformations() {
 	matrix = mat4.create();
 	translation = mat4.create();
 	scaling = mat4.create();
-	mat4.fromScaling(scaling, [0.25, 0.25, 0.25]);
+	mat4.fromScaling(scaling, [0.0025, 0.0025, 0.0025]);
 	mat4.fromTranslation(translation, [1.0, 0.0, 1.0]);
 	mat4.multiply(matrix, translation, scaling);
 	mesa.setModelMatrix(matrix);
@@ -56,11 +57,11 @@ function setObjectTransformations() {
 	matrix = mat4.create();
 	translation = mat4.create();
 	scaling = mat4.create();
-	mat4.fromScaling(scaling, [0.25, 0.25, 0.25]);
+	mat4.fromScaling(scaling, [0.025, 0.025, 0.025]);
 	mat4.fromTranslation(translation, [-1.0, 0.0, 1.0]);
 	mat4.multiply(matrix, translation, scaling);
 	drone.setModelMatrix(matrix);
-
+}
   function onLoad() {
   	let canvas = document.getElementById('webglCanvas');
   	gl = canvas.getContext('webgl');
@@ -100,5 +101,25 @@ function setObjectTransformations() {
 
   	axis = new Axis();
   	axis.load();
-  	camera = new SphericalCamera(55, 800/600);//use canvas dimensions
+  	camera = new SphericalCamera(55, canvas.clientWidth/canvas.clientHeight);//use canvas dimensions
   }
+
+		function onRender() {
+			let viewMatrix = camera.getViewMatrix();
+			let projMatrix = camera.getProjMatrix();
+			let modelMatrix = mat4.create();
+			gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+			axis.render(projMatrix, viewMatrix);
+
+			gl.useProgram(shaderProgram);
+			gl.uniformMatrix4fv(u_modelMatrix, false, modelMatrix);
+			gl.uniformMatrix4fv(u_viewMatrix, false, viewMatrix);
+			gl.uniformMatrix4fv(u_projMatrix, false, projMatrix);
+			let _modelColor = vec3.fromValues(modelColor.r, modelColor.g, modelColor.b);
+			gl.uniform3fv(u_modelColor, _modelColor);
+
+			// Draw objects
+			setObjectTransformations();
+			drone.draw(isSolid, gl, _gl);
+			mesa.draw(isSolid, gl, _gl);
+	}
