@@ -238,7 +238,7 @@ function onLoad() {
 
 	axis = new Axis();
 	axis.load();
-	camera = new SphericalCamera(55, 800/600);//use canvas dimensions
+	camera = new SphericalCamera(55, canvas.clientWidth/canvas.clientHeight);//use canvas dimensions
 }
 
 function onRender() {
@@ -282,7 +282,7 @@ function onRender() {
 }
 
 function createModelMatrix() {
-	let modelMatrix = mat4.create(); 
+	let modelMatrix = mat4.create();
 	let rotationMatrix = mat4.create();
 	let scaleMatrix = mat4.create();
 	mat4.fromYRotation(rotationMatrix, glMatrix.toRadian(angle));
