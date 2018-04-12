@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Hello WebGL</title>
+<script src="js/model/RawModel.js"></script>
+<script src="js/model/Loader.js"></script>
+<script src="js/model/Renderer.js"></script>
+<script src="js/shader/ShaderProgram.js"></script>
+<script src="js/shader/HelloShader.js"></script>
+<script src="files/shaders/vertex.glsl"></script>
+<script src="files/shaders/fragment.glsl"></script>
+<script>
+var gl = null;
+
+var rawModel = null;
+var renderer = null;
+var shaderProgram = null;
+
+function onLoad() {
+	let canvas = document.getElementById('webglCanvas');
+	gl = canvas.getContext('webgl');
+
+	let loader = new Loader();
+	let positions = [
+		-0.5, 0.5, 0,
+		-0.5, -0.5, 0,
+		0.5, -0.5, 0
+	];
+	let indices = [0, 1, 2];
+
+	rawModel = loader.loadToVAO(indices, positions);
+	renderer = new Renderer();
+	shaderProgram = new HelloShader(vertexShaderSource, fragmentShaderSource);
+	onPaint();
+}
+
+function onPaint() {
+	renderer.prepare();
+	shaderProgram.start();
+	renderer.render(rawModel);
+	shaderProgram.stop();
+}
+</script>
+</head>
+
+<body onload='onLoad();'>
+<h1>Hello WebGL</h1>
+<div>
+	<button onclick="onPaint()">Render!</button>
+</div>
+
+<canvas id='webglCanvas' width = "500" height = "500"></canvas>
+
+</body>
