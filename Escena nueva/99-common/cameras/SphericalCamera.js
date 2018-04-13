@@ -51,7 +51,7 @@ class SphericalCamera extends Camera {
 
 		let x = this.r * Math.sin(_phi) * Math.cos(_theta);
 		let z = this.r * Math.sin(_phi) * Math.sin(_theta);
-		let y = 1 + this.r * Math.cos(_phi);
+		let y = this.r * Math.cos(_phi) + 1;
 		return [x, y, z];
 	}
 }

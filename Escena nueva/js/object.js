@@ -2,10 +2,10 @@ class Object {
 	constructor(objectSource) {
 		this.source = objectSource;
 		this.vaoSolid = null; //Geometry to render (stored in VAO).
-        this.vaoWire = null;
+    this.vaoWire = null;
 		this.indexCountSolid = 0;
-        this.indexCountWire = 0;
-        this.modelMatrix = mat4.create(); // Indentity matrix
+    this.indexCountWire = 0;
+    //this.modelMatrix = mat4.create(); // Indentity matrix
 	}
 
 	generateModel(pos_location) {
@@ -19,10 +19,10 @@ class Object {
 		let vertexAttributeInfoArray = [
 			new VertexAttributeInfo(positions, this.pos_location, 3)
 		];
-	
+
 		this.vaoSolid = VAOHelper.create(indicesSolid, vertexAttributeInfoArray);
 		this.vaoWire = VAOHelper.create(indicesWire, vertexAttributeInfoArray);
-	
+
 		//Ya tengo los buffers cargados en memoria de la placa grafica, puedo borrarlo de JS
 		//delete(parsedOBJ);
 		parsedOBJ = null;
@@ -39,12 +39,12 @@ class Object {
 		// Draw object
 		if (solid) {
 			_gl.bindVertexArrayOES(this.vaoSolid);
-			gl.drawElements(gl.TRIANGLES, this.indexCountSolid, gl.UNSIGNED_INT, 0);	
+			gl.drawElements(gl.TRIANGLES, this.indexCountSolid, gl.UNSIGNED_INT, 0);
 		} else {
 			_gl.bindVertexArrayOES(this.vaoWire);
 			gl.drawElements(gl.LINES, this.indexCountWire, gl.UNSIGNED_INT, 0);
 		}
-		
+
 	}
 
 }

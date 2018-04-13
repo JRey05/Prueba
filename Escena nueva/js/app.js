@@ -28,6 +28,7 @@ var parsedOBJ = null; //Parsed OBJ file
 
 var axis;//Objeto auxiliar "Ejes"
 var camera;
+var free = true;
 
 function loadObjects(pos_location) {
 
@@ -42,35 +43,28 @@ function setObjectTransformations() {
 	let matrix = mat4.create();
 	let translation = mat4.create();
 	let scaling = mat4.create();
+	let rotation = mat4.create();
 
-	/*
-	let modelQuat = quat.create();
-	let rotationQuat = quat.create();
-	let scaleQuat= quat.create();
-
-	quat.rotateY(rotationQuat, rotationQuat, glMatrix.toRadian(angle));
-	quat.scale(scaleQuat, scaleQuat, scale);
-	quat.mul(modelQuat, rotationQuat, scaleQuat);
-	mat4.fromQuat(modelMatrix, modelQuat);
-	*/
-
-	// Set mono model matrix
+	// Set mesa model matrix
 	matrix = mat4.create();
 	translation = mat4.create();
 	scaling = mat4.create();
 	mat4.fromScaling(scaling, [0.007, 0.007, 0.007]);
 	mat4.fromTranslation(translation, [0.0, 0.0, 0.0]);
-	mat4.multiply(matrix, translation, scaling);
+
+	mat4.multiply(matrix, translation, scaling);;
+
 	mesa.setModelMatrix(matrix);
 
-
-	// Set esfera model matrix
+	// Set drone model matrix
 	matrix = mat4.create();
 	translation = mat4.create();
 	scaling = mat4.create();
 	mat4.fromScaling(scaling, [0.005, 0.005, 0.005]);
 	mat4.fromTranslation(translation, [0.35, 0.5, 0.0]);
-	mat4.multiply(matrix, translation, scaling);
+	mat4.fromYRotation(rotation, glMatrix.toRadian(angle));
+	mat4.multiply(matrix, rotation, scaling);
+	mat4.multiply(matrix, translation, matrix);
 	drone.setModelMatrix(matrix);
 }
   function onLoad() {

@@ -12,7 +12,6 @@ class FreeCamera extends Camera {
 		this.deltaPos = 0.1;
 		//Number. Delta for rotations.
 		this.deltaRot = glMatrix.toRadian(5);
-
 	}
 
 	getViewMatrix() {
@@ -90,6 +89,16 @@ class FreeCamera extends Camera {
 
 	rollRight() {
 		this._roll(this.deltaRot);
+	}
+
+	_toCartesianArray() {
+		let _theta = glMatrix.toRadian(this.theta);
+		let _phi = glMatrix.toRadian(this.phi);
+
+		let x = this.r * Math.sin(_phi) * Math.cos(_theta);
+		let z = this.r * Math.sin(_phi) * Math.sin(_theta);
+		let y = this.r * Math.cos(_phi);
+		return [x, y, z];
 	}
 
 	_yaw(angle) {

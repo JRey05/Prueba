@@ -11,6 +11,7 @@
 	<script src="99-common/OBJParser.js"></script>
 	<script src="99-common/primitives/Axis.js"></script>
 	<script src="99-common/cameras/Camera.js"></script>
+	<script src="99-common/cameras/FreeCamera.js"></script>
 	<script src="99-common/cameras/SphericalCamera.js"></script>
 	<script src="files/shaders/vertex.glsl"></script>
 	<script src="files/shaders/fragment.glsl"></script>
@@ -22,12 +23,9 @@
 	<script src="assets/drone.obj"></script>
 </head>
 <body onkeypress="onKeyDown(event);" onload='onLoad();'>
-	<h3>Scene: objects and transformations</h3>
-	<button onclick="onLoad();">1. Load Method!</button>
-	<button onclick="onRender();">1. Render Method!</button>
+	<button onclick="onRender();">Render Method!</button>
 	<br>
 	<br>
-	<h4>Properties</h4>
 	<table border="2" style='float:left;'>
 		<tr><th>Param</th><th>Control</th><th>Value</th></tr>
 		<tr>
@@ -36,24 +34,14 @@
 			<td id="lblFovy">55</td>
 		</tr>
 		<tr>
-			<td>Camera Radius</td>
-			<td>Press + or - numpad keys</td>
-			<td id="lblRadius">2</td>
-		</tr>
-		<tr>
 			<td>Camera Theta</td>
-			<td>Press A or D keys</td>
+			<td>0º&le;<input type="range" min="1" max="360" step="1" value="45" oninput="onSliderTheta(this, 'lblTheta');">&le;360º</td>
 			<td id='lblTheta'>45</td>
 		</tr>
 		<tr>
 			<td>Camera Phi</td>
-			<td>Press W or S keys</td>
-			<td id='lblPhi'>0</td>
-		</tr>
-		<tr>
-			<td>Camera Target</td>
-			<td>(0, 0, 0)</td>
-			<td></td>
+			<td>1º&le;<input type="range" min="1" max="179" step="1" value="45" oninput="onSliderPhi(this, 'lblPhi');">&le;179º</td>
+			<td id='lblPhi'>45</td>
 		</tr>
 		<tr>
 			<td>Model Color</td>
@@ -68,9 +56,53 @@
 			</td>
 			<td></td>
 		</tr>
+		<tr>
+			<td>Camera Type</td>
+			<td>
+				<input type="checkbox" name="b" onchange="onCheckboxCamera(this)">
+				Free/Spheric
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>Camera forward/backward</td>
+			<td>KeyW/KeyS</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>Camera left/right</td>
+			<td>KeyA/KeyD</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>Camera up/down</td>
+			<td>KeyQ/KeyE</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>Camera pitch</td>
+			<td>KeyI/KeyK</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>Camera yaw</td>
+			<td>KeyJ/KeyL</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>Camera roll</td>
+			<td>KeyU/KeyO</td>
+			<td></td>
+		</tr>
+		<tr>
+		<tr>
+			<td>Model RotationY</td>
+			<td>0º&le;<input type="range" min="1" max="360" step="1" value="0" oninput="onSliderRotation(this, 'lblRotationY');">&le;360º</td>
+			<td id='lblRotationY'>0</td>
+		</tr>
 	</table>
 
-	<canvas id='webglCanvas' width = "1000" height = "400" style="border: 1px solid gray"></canvas>
+	<canvas id='webglCanvas' width = "800" height = "600" style="border: 1px solid gray"></canvas>
 
 </body>
 </html>
