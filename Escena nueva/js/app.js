@@ -47,8 +47,8 @@ function setObjectTransformations() {
 	matrix = mat4.create();
 	translation = mat4.create();
 	scaling = mat4.create();
-	mat4.fromScaling(scaling, [0.0025, 0.0025, 0.0025]);
-	mat4.fromTranslation(translation, [1.0, 0.0, 1.0]);
+	mat4.fromScaling(scaling, [0.007, 0.007, 0.007]);
+	mat4.fromTranslation(translation, [0.0, 0.0, 0.0]);
 	mat4.multiply(matrix, translation, scaling);
 	mesa.setModelMatrix(matrix);
 
@@ -57,8 +57,8 @@ function setObjectTransformations() {
 	matrix = mat4.create();
 	translation = mat4.create();
 	scaling = mat4.create();
-	mat4.fromScaling(scaling, [0.025, 0.025, 0.025]);
-	mat4.fromTranslation(translation, [-1.0, 0.0, 1.0]);
+	mat4.fromScaling(scaling, [0.005, 0.005, 0.005]);
+	mat4.fromTranslation(translation, [0.35, 0.5, 0.0]);
 	mat4.multiply(matrix, translation, scaling);
 	drone.setModelMatrix(matrix);
 }
@@ -102,6 +102,7 @@ function setObjectTransformations() {
   	axis = new Axis();
   	axis.load();
   	camera = new SphericalCamera(55, canvas.clientWidth/canvas.clientHeight);//use canvas dimensions
+		onRender();
   }
 
 		function onRender() {

@@ -26,7 +26,7 @@ function writeValue(labelId, value) {
 // *************
 var radius_step = 0.5;
 var theta_step = 5.0;
-var phi_step = 5.0;
+var phi_step = 0.1;
 
 function increaseRadius() {
 	let radius = camera.getRadius();
@@ -34,18 +34,18 @@ function increaseRadius() {
 	if (radius <= 10.0) {
 		camera.setRadius(radius);
 
-		writeValue('lblRadius', radius);	
-	}	
+		writeValue('lblRadius', radius);
+	}
 }
 
 function decreaseRadius() {
 	let radius = camera.getRadius();
 	radius = radius - radius_step;
 	if (radius >= 0.0) {
-		camera.setRadius(radius);	
+		camera.setRadius(radius);
 
 		writeValue('lblRadius', radius);
-	}	
+	}
 }
 
 function increaseTheta() {
@@ -55,7 +55,7 @@ function increaseTheta() {
 		camera.setTheta(theta);
 
 		writeValue('lblTheta', theta);
-	}	
+	}
 }
 
 function decreaseTheta() {
@@ -65,7 +65,7 @@ function decreaseTheta() {
 		camera.setTheta(theta);
 
 		writeValue('lblTheta', theta);
-	}	
+	}
 }
 
 function increasePhi() {
@@ -75,17 +75,17 @@ function increasePhi() {
 		camera.setPhi(phi);
 
 		writeValue('lblPhi', phi);
-	}	
+	}
 }
 
 function decreasePhi() {
 	let phi = camera.getPhi();
 	phi = phi - phi_step;
-	if (phi >= 1.0) {
+	if (phi >= 0) {
 		camera.setPhi(phi);
 
 		writeValue('lblPhi', phi);
-	}	
+	}
 }
 
 function onKeyDown(evt) {

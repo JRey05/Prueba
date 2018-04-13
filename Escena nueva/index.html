@@ -21,7 +21,7 @@
 	<script src="assets/mesa.obj"></script>
 	<script src="assets/drone.obj"></script>
 </head>
-<body onkeypress="onKeyDown(event);">
+<body onkeypress="onKeyDown(event);" onload='onLoad();'>
 	<h3>Scene: objects and transformations</h3>
 	<button onclick="onLoad();">1. Load Method!</button>
 	<button onclick="onRender();">1. Render Method!</button>
@@ -48,7 +48,7 @@
 		<tr>
 			<td>Camera Phi</td>
 			<td>Press W or S keys</td>
-			<td id='lblPhi'>45</td>
+			<td id='lblPhi'>0</td>
 		</tr>
 		<tr>
 			<td>Camera Target</td>
