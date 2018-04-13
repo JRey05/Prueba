@@ -43,6 +43,17 @@ function setObjectTransformations() {
 	let translation = mat4.create();
 	let scaling = mat4.create();
 
+	/*
+	let modelQuat = quat.create();
+	let rotationQuat = quat.create();
+	let scaleQuat= quat.create();
+
+	quat.rotateY(rotationQuat, rotationQuat, glMatrix.toRadian(angle));
+	quat.scale(scaleQuat, scaleQuat, scale);
+	quat.mul(modelQuat, rotationQuat, scaleQuat);
+	mat4.fromQuat(modelMatrix, modelQuat);
+	*/
+
 	// Set mono model matrix
 	matrix = mat4.create();
 	translation = mat4.create();

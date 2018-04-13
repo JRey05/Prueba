@@ -12,6 +12,7 @@ class FreeCamera extends Camera {
 		this.deltaPos = 0.1;
 		//Number. Delta for rotations.
 		this.deltaRot = glMatrix.toRadian(5);
+
 	}
 
 	getViewMatrix() {
@@ -92,29 +93,47 @@ class FreeCamera extends Camera {
 	}
 
 	_yaw(angle) {
-		let rotationMatrix = mat4.create();
+		/*let rotationMatrix = mat4.create();
 		mat4.fromRotation(rotationMatrix, angle, this._up());
 
 		vec3.transformMat4(this.forward, this.forward, rotationMatrix);
-		vec3.transformMat4(this.right, this.right, rotationMatrix);
+		vec3.transformMat4(this.right, this.right, rotationMatrix);*/
+
+		let yRot = quat.create();
+		quat.rotateY(yRot, yRot, angle);
+
+		vec3.transformQuat(this.forward, this.forward, yRot);
+		vec3.transformQuat(this.right, this.right, yRot);
+
 		vec3.normalize(this.forward, this.forward);
 		vec3.normalize(this.right, this.right);
 	}
 
-
 	_pitch(angle) {
-		let rotationMatrix = mat4.create();
+		/*let rotationMatrix = mat4.create();
 		mat4.fromRotation(rotationMatrix, angle, this.right);
 
-		vec3.transformMat4(this.forward, this.forward, rotationMatrix);
+		vec3.transformMat4(this.forward, this.forward, rotationMatrix);*/
+
+		let zRot = quat.create();
+		quat.rotateZ(zRot, zRot, angle);
+
+		vec3.transformQuat(this.forward, this.forward, zRot);
+
 		vec3.normalize(this.forward, this.forward);
 	}
 
 	_roll(angle) {
-		let rotationMatrix = mat4.create();
+		/*let rotationMatrix = mat4.create();
 		mat4.fromRotation(rotationMatrix, angle, this.forward);
 
-		vec3.transformMat4(this.right, this.right, rotationMatrix);
+		vec3.transformMat4(this.right, this.right, rotationMatrix);*/
+
+		let xRot = quat.create();
+		quat.rotateX(xRot, xRot, angle);
+
+		vec3.transformQuat(this.right, this.right, xRot);
+
 		vec3.normalize(this.right, this.right);
 	}
 }
