@@ -16,7 +16,7 @@ class SphericalCamera extends Camera {
 
 	getViewMatrix() {
 		let eye = this._toCartesianArray();
-		let target = [0, 0, 0];
+		let target = [0, 1, 0];
 		let up = [0, 1, 0];
 
 		mat4.lookAt(this.viewMatrix, eye, target, up);
@@ -51,7 +51,7 @@ class SphericalCamera extends Camera {
 
 		let x = this.r * Math.sin(_phi) * Math.cos(_theta);
 		let z = this.r * Math.sin(_phi) * Math.sin(_theta);
-		let y = this.r * Math.cos(_phi);
+		let y = 1 + this.r * Math.cos(_phi);
 		return [x, y, z];
 	}
 }

@@ -26,7 +26,7 @@ function writeValue(labelId, value) {
 // *************
 var radius_step = 0.5;
 var theta_step = 5.0;
-var phi_step = 0.1;
+var phi_step = 1;
 
 function increaseRadius() {
 	let radius = camera.getRadius();
